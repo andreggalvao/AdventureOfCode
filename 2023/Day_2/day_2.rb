@@ -26,7 +26,7 @@ dados.each_line do |line|
             jogos_quebrados << linha
         end
     end
-    linha = linha + 1
+    linha += 1
 end
 # puts jogos_quebrados.uniq
 # puts jogos_totais

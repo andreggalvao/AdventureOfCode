@@ -6,21 +6,26 @@ dados.gsub! ";", ","
 # \d+  \s  \[a-zA-Z]+  ->> /\d+\s\[a-zA-Z]+/
 regex = /\d+\s[a-zA-Z]+/
 linha = 1
-jogos_totais =(1..100).to_a
-jogos_quebrados = []
+somatoria = 0
 dados.each_line do |line|
     # puts line
     matches = line.scan(regex) #scan vai escanear e me entregar os pares que batem com meu regex
+    valores_maximos_por_cor   = {}
     matches.each do |par|
+        
         number, color = par.split    #split em "numero", "cor"
         # armazeno o par
         # se o próximo número da cor, for menor, substituo
-        # criar uma hash, armazena tudo e depois mantem só os menores?
 
+        number = number.to_i
+        # puts "A cor é #{color}, o numero eh #{number}"
+        if valores_maximos_por_cor [color].nil? || number >  valores_maximos_por_cor [color] #se for vazio eu preencho se for maior eu substituo
+            valores_maximos_por_cor [color] = number
+        end
     end
-    linha = linha + 1
+    somatoria += valores_maximos_por_cor .values.inject(:*)
+    # puts min_values_by_color
+    linha += 1
 end
-# puts jogos_quebrados.uniq
-# puts jogos_totais
-jogos_disponiveis = jogos_totais - jogos_quebrados.uniq
-puts jogos_disponiveis.sum()
+puts somatoria
+
